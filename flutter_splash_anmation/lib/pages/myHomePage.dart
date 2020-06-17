@@ -29,11 +29,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     _scaleAnimation = Tween<double>(
       begin: 1.0,
-      end: 30.0
+      end: 100.0
     ).animate(_scaleController)
       ..addStatusListener((status) { 
         if(status==AnimationStatus.completed){
-          Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: Shop()));
+          Navigator.of(context).pushAndRemoveUntil(PageTransition(type: PageTransitionType.rightToLeftWithFade, child: Shop()), (route) => false);
+          // Navigator.push(context, );
         }
       });
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_splash_anmation/pages/myHomePage.dart';
+import 'package:flutter_splash_anmation/pages/shop.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: Shop(),
     );
   }
 }

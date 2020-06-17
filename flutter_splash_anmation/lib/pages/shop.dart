@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_splash_anmation/Animation/fadeAnimation.dart';
+import 'package:flutter_splash_anmation/pages/category.dart';
 class Shop extends StatefulWidget {
   Shop({Key key}) : super(key: key);
 
@@ -11,6 +12,7 @@ class _ShopState extends State<Shop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -191,29 +193,39 @@ class _ShopState extends State<Shop> {
   Widget makeCategory({image, title, tag}) {
     return AspectRatio(
       aspectRatio: 2 / 2.2,
-      child: Container(
-        margin: EdgeInsets.only(right: 20.0),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage('$image'))),
-        child: Container(
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
-                Colors.black.withOpacity(.8),
-                Colors.black.withOpacity(0)
-              ])),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              '$title',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
+      child: Hero(
+        tag: tag,
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: ( context )=>Category(image: image,title: title,tag: tag,)));
+          },
+          child: Material(
+            child: Container(
+              margin: EdgeInsets.only(right: 20.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('$image'))),
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
+                      Colors.black.withOpacity(.8),
+                      Colors.black.withOpacity(0)
+                    ])),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    '$title',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
             ),
           ),
         ),
