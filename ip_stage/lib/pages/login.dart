@@ -15,11 +15,26 @@ class _MyHomePageState extends State<MyHomePage> {
   RegExp reg = RegExp(r'[0-9a-zA-Z]{1,15}[@][0-9a-zA-Z]{1,5}[.][a-z]{1,3}');
   TextEditingController _emailEditingController = TextEditingController();
   TextEditingController _passwordEditingController = TextEditingController();
+  String _email = '';
+  String _password = '';
   bool _isloading = false;
   setToken () async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("token","7ua6ds9ds690xxs");
   }
+  void change(String type,String text){
+    if(type == 'email'){
+      setState(() {
+        _email = text;
+      });
+    }else if(type == 'password'){
+      setState(() {
+        _password = text;
+      });
+    }
+    
+  }
+  
   void _onTapToHome() {
     if(_emailEditingController.text==""){
       Toast.show('邮件未输入！',context, duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
@@ -152,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
                                 onChanged: (String text){
-                                  _emailEditingController.text = text;
+                                  change('email',text);
                                 },
                               ),
                             ),
@@ -171,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[400])),
                                 onChanged: (String text){
-                                  _passwordEditingController.text = text;
+                                  change('password',text);
                                 },
                               ),
                             )
