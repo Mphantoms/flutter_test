@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ip_stage/entity/home_e.dart';
+import 'package:ip_stage/pages/detail.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -14,6 +15,7 @@ class _HomeState extends State<Home> {
 
   List<HomeE> opsList = [
     HomeE(
+      id: 1,
       title: '楼外空',
       cover:
           'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916048388&di=ed6d17f02ee81214dc67897164c4d7ae&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201412%2F02%2F20141202152332_Txtru.png',
@@ -22,6 +24,7 @@ class _HomeState extends State<Home> {
       name: '能爷',
     ),
     HomeE(
+      id: 2,
       title: '清风话语',
       cover:
           'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916048388&di=ed6d17f02ee81214dc67897164c4d7ae&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201412%2F02%2F20141202152332_Txtru.png',
@@ -30,6 +33,7 @@ class _HomeState extends State<Home> {
       name: '奥力给',
     ),
     HomeE(
+      id: 3,
       title: '午后浓茶',
       cover:
           'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916048388&di=ed6d17f02ee81214dc67897164c4d7ae&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201412%2F02%2F20141202152332_Txtru.png',
@@ -38,6 +42,7 @@ class _HomeState extends State<Home> {
       name: '苍梧',
     ),
     HomeE(
+      id: 4,
       title: '这个世界',
       cover:
           'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916048388&di=ed6d17f02ee81214dc67897164c4d7ae&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201412%2F02%2F20141202152332_Txtru.png',
@@ -47,15 +52,15 @@ class _HomeState extends State<Home> {
     )
   ];
   ScrollController _scrollController = ScrollController();
-  Future _refresh(){
-    print(111);
+  Future<void> _refresh(){
+    print(00);
   }
   @override
   void initState() {
     _scrollController.addListener(() {
           // 如果滑动到底部
           if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-                // print('111');
+                _refresh();
           }
     });
     super.initState();
@@ -161,6 +166,7 @@ class _HomeState extends State<Home> {
                           crossAxisSpacing: ScreenUtil().setSp(32),
                           children: opsList
                               .map((e) => HomeCard(
+                                    id:e.id,
                                     image: e.image,
                                     name: e.name,
                                     cover: e.cover,
@@ -184,74 +190,82 @@ class HomeCard extends StatelessWidget {
   final String name;
   final String title;
   final String cover;
-
-  const HomeCard({Key key, this.image, this.name, this.title, this.cover})
+  final int id;
+  const HomeCard({Key key, this.image, this.name, this.title, this.cover, this.id})
       : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: ClipRRect(
-        borderRadius:
-            BorderRadius.all(Radius.circular(ScreenUtil().setSp(16.0))),
+    _gotoDetail(int id){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail(id: id)));
+    }
+    return GestureDetector(
+      onTap: (){
+        _gotoDetail(id);
+      },
         child: Container(
-          decoration: BoxDecoration(
-            border:
-                Border.all(width: 1.0, color: Color.fromRGBO(240, 240, 240, 1)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height:
-                    ((MediaQuery.of(context).size.width) * 10 / 11 / 2) * 0.73,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                      image),
-                )),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                    ScreenUtil().setSp(16.0),
-                    ScreenUtil().setSp(16.0),
-                    ScreenUtil().setSp(16.0),
-                    ScreenUtil().setSp(8.0)),
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      color: Color.fromRGBO(51, 51, 51, 1),
-                      fontSize: ScreenUtil().setSp(28)),
+        color: Colors.white,
+        child: ClipRRect(
+          borderRadius:
+              BorderRadius.all(Radius.circular(ScreenUtil().setSp(16.0))),
+          child: Container(
+            decoration: BoxDecoration(
+              border:
+                  Border.all(width: 1.0, color: Color.fromRGBO(240, 240, 240, 1)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height:
+                      ((MediaQuery.of(context).size.width) * 10 / 11 / 2) * 0.73,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                        image),
+                  )),
                 ),
-              ),
-              Row(
-                children: [
-                  SizedBox(width: ScreenUtil().setWidth(16.0)),
-                  Container(
-                    width: ScreenUtil().setSp(32.0),
-                    height: ScreenUtil().setSp(32.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(ScreenUtil().setSp(36.0))),
-                      child: Image(
-                          image: NetworkImage(
-                              cover)),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(8.0),
-                  ),
-                  Text(
-                    name,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      ScreenUtil().setSp(16.0),
+                      ScreenUtil().setSp(16.0),
+                      ScreenUtil().setSp(16.0),
+                      ScreenUtil().setSp(8.0)),
+                  child: Text(
+                    title,
                     style: TextStyle(
                         color: Color.fromRGBO(51, 51, 51, 1),
-                        fontSize: ScreenUtil().setSp(22)),
-                  )
-                ],
-              )
-            ],
+                        fontSize: ScreenUtil().setSp(28)),
+                  ),
+                ),
+                Row(
+                  children: [
+                    SizedBox(width: ScreenUtil().setWidth(16.0)),
+                    Container(
+                      width: ScreenUtil().setSp(32.0),
+                      height: ScreenUtil().setSp(32.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(ScreenUtil().setSp(36.0))),
+                        child: Image(
+                            image: NetworkImage(
+                                cover)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: ScreenUtil().setWidth(8.0),
+                    ),
+                    Text(
+                      name,
+                      style: TextStyle(
+                          color: Color.fromRGBO(51, 51, 51, 1),
+                          fontSize: ScreenUtil().setSp(22)),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

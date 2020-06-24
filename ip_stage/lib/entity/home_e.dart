@@ -3,14 +3,15 @@ class HomeE {
   String cover;
   String image;
   String name;
-
-  HomeE({this.title, this.cover, this.image, this.name});
+  int id;
+  HomeE({this.title, this.cover, this.image, this.name,this.id});
 
   HomeE.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     cover = json['cover'];
     image = json['image'];
     name = json['name'];
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -19,6 +20,7 @@ class HomeE {
     data['cover'] = this.cover;
     data['image'] = this.image;
     data['name'] = this.name;
+    data['id'] = this.id;
     return data;
   }
 }
