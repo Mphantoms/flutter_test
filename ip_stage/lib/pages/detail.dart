@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:ip_stage/pages/homedata.dart';
 
 class Detail extends StatefulWidget {
   final int id;
@@ -54,6 +55,9 @@ class _DetailState extends State<Detail> {
     'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3471072454,1011250337&fm=26&gp=0.jpg',
     'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592996122166&di=72fd3dfd8722376abddbe7de38a19dfd&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F21%2F20180421192012_hcnug.thumb.700_0.jpg'
   ];
+  _gotoHomeData(int id){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeData(id: id)));
+  }
   @override
   Widget build(BuildContext context) {
     // int _id = widget.id;
@@ -360,6 +364,7 @@ class _DetailState extends State<Detail> {
                               icon: Icons.android,
                               isShowTime: false,
                               isShowLoadMore: false,
+                              id: 1
                             ),
                             KeyImage(
                               image:
@@ -410,6 +415,8 @@ class _DetailState extends State<Detail> {
                               icon: Icons.sentiment_satisfied,
                               isShowTime: true,
                               isShowLoadMore: true,
+                              fn: _gotoHomeData,
+                              id: 1
                             ),
                             IPExpressive(),
                             DetailTitle(
@@ -417,6 +424,7 @@ class _DetailState extends State<Detail> {
                               icon: Icons.rss_feed,
                               isShowTime: false,
                               isShowLoadMore: false,
+                              id: 1,
                             ),
                             NumberDerivatives(
                               images: imagesLists,
@@ -426,6 +434,7 @@ class _DetailState extends State<Detail> {
                               icon: Icons.shopping_basket,
                               isShowTime: false,
                               isShowLoadMore: false,
+                              id: 1
                             ),
                             EntityDerivatives(
                               images: imageslists6,
@@ -502,8 +511,10 @@ class DetailTitle extends StatelessWidget {
   final String title;
   final bool isShowTime;
   final bool isShowLoadMore;
+  final Function fn;
+  final int id;
   const DetailTitle(
-      {Key key, this.icon, this.title, this.isShowTime, this.isShowLoadMore})
+      {Key key, this.icon, this.title, this.isShowTime, this.isShowLoadMore,this.fn,this.id})
       : super(key: key);
 
   @override
@@ -546,19 +557,24 @@ class DetailTitle extends StatelessWidget {
             ],
           ),
           isShowLoadMore == true
-              ? Row(
-                  children: [
-                    Text(
-                      '更多',
-                      style: TextStyle(
-                          color: Color.fromRGBO(153, 153, 153, 1),
-                          fontSize: ScreenUtil().setSp(24.0),
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Icon(Icons.arrow_forward_ios,
-                        size: 12, color: Color.fromRGBO(153, 153, 153, 1)),
-                  ],
-                )
+              ? GestureDetector(
+                onTap: (){
+                  fn(id);
+                },
+                    child: Row(
+                    children: [
+                      Text(
+                        '更多',
+                        style: TextStyle(
+                            color: Color.fromRGBO(153, 153, 153, 1),
+                            fontSize: ScreenUtil().setSp(24.0),
+                            fontWeight: FontWeight.w400),
+                      ),
+                      Icon(Icons.arrow_forward_ios,
+                          size: 12, color: Color.fromRGBO(153, 153, 153, 1)),
+                    ],
+                  ),
+              )
               : Container(),
         ],
       ),
