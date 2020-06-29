@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_stage/bottomNav.dart';
 import 'package:toast/toast.dart';
 import '../Animations/FadeAnimation.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
@@ -32,7 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
         _password = text;
       });
     }
-    
   }
   
   void _onTapToHome() {
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(width: 750,height: 1334);
     return Scaffold(
         backgroundColor: Colors.white,
         body: LoadingOverlay(
@@ -73,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Container(
               child: Column(children: <Widget>[
                 Container(
-                  height: 400,
+                  height: ScreenUtil().setHeight(500.0),
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/images/login/background.png'),
@@ -81,9 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        left: 30,
-                        width: 80,
-                        height: 200,
+                        left: ScreenUtil().setWidth(50.0),
+                        width: ScreenUtil().setWidth(160.0),
+                        height: ScreenUtil().setWidth(300.0),
                         child: FadeAnimation(
                             1,
                             Container(
@@ -93,9 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             )))),
                       ),
                       Positioned(
-                        left: 140,
-                        width: 80,
-                        height: 150,
+                        left: ScreenUtil().setWidth(240.0),
+                        width: ScreenUtil().setWidth(120.0),
+                        height: ScreenUtil().setWidth(220.0),
                         child: FadeAnimation(
                             1.2,
                             Container(
@@ -105,10 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             )))),
                       ),
                       Positioned(
-                        right: 40,
-                        top: 40,
-                        width: 80,
-                        height: 150,
+                        right: ScreenUtil().setWidth(60.0),
+                        top: ScreenUtil().setWidth(100.0),
+                        width: ScreenUtil().setWidth(120.0),
+                        height: ScreenUtil().setWidth(120.0),
                         child: FadeAnimation(
                             1.4,
                             Container(
@@ -121,13 +123,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: FadeAnimation(
                             1.4,
                             Container(
-                              margin: EdgeInsets.only(top: 50.0),
+                              margin: EdgeInsets.only(top: ScreenUtil().setWidth(120.0)),
                               child: Center(
                                 child: Text(
                                   '你好，请登录',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 40,
+                                      fontSize:  ScreenUtil().setSp(64.0),
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -137,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(30.0),
+                  padding: EdgeInsets.all(ScreenUtil().setWidth(48.0)),
                   child: Column(children: <Widget>[
                     FadeAnimation(
                         1.6,
@@ -148,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               boxShadow: [
                                 BoxShadow(
                                     color: Color.fromRGBO(143, 148, 251, .2),
-                                    blurRadius: 20.0,
+                                    blurRadius: ScreenUtil().setWidth(24.0),
                                     offset: Offset(0, 10))
                               ],
                               borderRadius: BorderRadius.circular(10.0)),
@@ -193,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ]),
                         )),
                     SizedBox(
-                      height: 30.0,
+                      height: ScreenUtil().setWidth(64.0),
                     ),
                     FadeAnimation(
                         1.8,
@@ -202,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             _onTapToHome();
                           },
                           child: Container(
-                            height: 50,
+                            height: ScreenUtil().setWidth(90.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               gradient: LinearGradient(colors: [
@@ -214,20 +216,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Text(
                                 '登录',
                                 style:
-                                    TextStyle(color: Colors.white, fontSize: 20),
+                                    TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(32.0)),
                               ),
                             ),
                           ),
                         )),
                     SizedBox(
-                      height: 70.0,
+                      height: ScreenUtil().setSp(120.0),
                     ),
                     FadeAnimation(
                         2.0,
                         Text('忘记密码？',
                             style: TextStyle(
                                 color: Color.fromRGBO(143, 148, 251, 1),
-                                fontSize: 20)))
+                                fontSize: ScreenUtil().setSp(32.0))))
                   ]),
                 ),
               ]),

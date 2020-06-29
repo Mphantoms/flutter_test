@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:ip_stage/pages/mywebview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Museum extends StatefulWidget {
@@ -16,6 +17,9 @@ class _MuseumState extends State<Museum> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print(prefs.getString('token'));
     prefs.remove('token');
+  }
+  _gotoMyWebView(int id){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyWebView(id: id)));
   }
   @override
   Widget build(BuildContext context) {
@@ -103,8 +107,18 @@ class _MuseumState extends State<Museum> {
                       0),
                   child: Column(
                     children: [
-                      MuseumComp(title: '听弦断，断那三千痴缠。坠花湮，湮没一朝风涟。花若怜，落在谁的指尖',image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916537493&di=9a0d5d188e0012e2c615feb8558ddb35&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F6%2F58734aaa292f2.jpg',),
-                      MuseumComp(title: '长街长,烟花繁,你挑灯回看, 短亭短,红尘辗,我把萧再叹',image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916537492&di=ecede7a74e507287d3fba6c4a8c3ae03&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F3%2F59b2567f33320.jpg',)
+                      GestureDetector(
+                        child: MuseumComp(title: '听弦断，断那三千痴缠。坠花湮，湮没一朝风涟。花若怜，落在谁的指尖',image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916537493&di=9a0d5d188e0012e2c615feb8558ddb35&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F6%2F58734aaa292f2.jpg',),
+                        onTap: (){
+                          _gotoMyWebView(30);
+                        },
+                      ),
+                      GestureDetector(
+                        child: MuseumComp(title: '长街长,烟花繁,你挑灯回看, 短亭短,红尘辗,我把萧再叹',image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592916537492&di=ecede7a74e507287d3fba6c4a8c3ae03&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F3%2F59b2567f33320.jpg',),
+                        onTap: (){
+                          _gotoMyWebView(22);
+                        },
+                      ),
                     ],
                   ),
                 )

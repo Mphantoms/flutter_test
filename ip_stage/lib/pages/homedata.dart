@@ -225,7 +225,7 @@ class _HomeDataState extends State<HomeData> {
                     padding: EdgeInsets.only(
                         left: ScreenUtil().setWidth(32.0),
                         right: ScreenUtil().setWidth(32.0)),
-                    child: barChart(),
+                    child: BarChart(),
                   ),
                   Padding(
                     padding:

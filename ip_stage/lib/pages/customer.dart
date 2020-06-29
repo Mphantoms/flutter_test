@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_stage/entity/home_e.dart';
+import 'package:ip_stage/pages/detail.dart';
+import 'package:ip_stage/pages/edit.dart';
+import 'package:ip_stage/pages/homedata.dart';
 import 'package:ip_stage/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -78,7 +81,9 @@ class _YesLoginState extends State<YesLogin> {
       navNum = num;
     });
   }
-
+  _gotoEdit(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>Edit()));
+  }
   List<HomeE> opsList = [
     HomeE(
       title: '楼外空',
@@ -123,6 +128,9 @@ class _YesLoginState extends State<YesLogin> {
   ];
   @override
   Widget build(BuildContext context) {
+    _gotoHomeData(int id){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail(id: id)));
+    }
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -180,25 +188,30 @@ class _YesLoginState extends State<YesLogin> {
                   SizedBox(
                     width: ScreenUtil().setWidth(70.0),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: ScreenUtil().setHeight(86.0)),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.edit,
-                          size: 24,
-                          color: Color.fromRGBO(153, 153, 153, 1),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(18.0),
-                        ),
-                        Text(
-                          '编辑资料',
-                          style: TextStyle(
-                              color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: ScreenUtil().setSp(22)),
-                        )
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                      _gotoEdit();
+                    },
+                      child: Container(
+                      margin: EdgeInsets.only(top: ScreenUtil().setHeight(86.0)),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            size: 24,
+                            color: Color.fromRGBO(153, 153, 153, 1),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(18.0),
+                          ),
+                          Text(
+                            '编辑资料',
+                            style: TextStyle(
+                                color: Color.fromRGBO(153, 153, 153, 1),
+                                fontSize: ScreenUtil().setSp(22)),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -328,13 +341,18 @@ class _YesLoginState extends State<YesLogin> {
                         childAspectRatio: 10 / 11,
                         mainAxisSpacing: ScreenUtil().setSp(32),
                         crossAxisSpacing: ScreenUtil().setSp(32),
-                        children: opsList
-                            .map((e) => HomeCard(
-                                  image: e.image,
-                                  name: e.name,
-                                  cover: e.cover,
-                                  title: e.title,
-                                ))
+                        children: opsList.asMap().keys
+                            .map((e) => GestureDetector(
+                              onTap: (){
+                                _gotoHomeData(e);
+                              },
+                              child: HomeCard(
+                                    image: opsList[e].image,
+                                    name: opsList[e].name,
+                                    cover: opsList[e].cover,
+                                    title: opsList[e].title,
+                                  ),
+                            ))
                             .toList(),
                       ),
                     ),

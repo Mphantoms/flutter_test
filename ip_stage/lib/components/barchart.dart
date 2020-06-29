@@ -7,8 +7,8 @@ class Barsales {
   Color color;
   Barsales(this.day, this.sale,this.color);
 }
-class barChart extends StatelessWidget {
-  const barChart({Key key}) : super(key: key);
+class BarChart extends StatelessWidget {
+  const BarChart({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

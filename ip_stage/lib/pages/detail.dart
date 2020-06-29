@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:ip_stage/pages/homedata.dart';
+import 'package:ip_stage/pages/picdetail.dart';
+import 'package:ip_stage/pages/piclist.dart';
 
 class Detail extends StatefulWidget {
   final int id;
@@ -57,6 +59,12 @@ class _DetailState extends State<Detail> {
   ];
   _gotoHomeData(int id){
       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeData(id: id)));
+  }
+  _gotoPicDetail(int id){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>PicDetail(id: id)));
+  }
+  _gotoPicList(){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>PicList()));
   }
   @override
   Widget build(BuildContext context) {
@@ -375,6 +383,7 @@ class _DetailState extends State<Detail> {
                               icon: Icons.sentiment_satisfied,
                               isShowTime: false,
                               isShowLoadMore: false,
+                              
                             ),
                             Container(
                               padding: EdgeInsets.only(
@@ -384,27 +393,40 @@ class _DetailState extends State<Detail> {
                                   IPConnect(
                                     title: '樱花少女女生节篇',
                                     imgList: imageslists2,
+                                    fn: _gotoPicDetail,
+                                    id: 1,
                                   ),
                                   IPConnect(
                                     title: '樱花少女买家篇',
                                     imgList: imageslists3,
+                                    fn: _gotoPicDetail,
+                                    id: 1,
                                   ),
                                   IPConnect(
                                     title: '樱花少女卖家篇',
                                     imgList: imageslists4,
+                                    fn: _gotoPicDetail,
+                                    id: 1,
                                   ),
                                   IPConnect(
                                     title: '樱花少女夏日篇',
                                     imgList: imageslists5,
+                                    fn: _gotoPicDetail,
+                                    id: 1,
                                   ),
                                   SizedBox(
                                     height: ScreenUtil().setWidth(16.0),
                                   ),
-                                  Text(
-                                    '查看所有表情包',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(153, 153, 153, 1),
-                                      fontSize: ScreenUtil().setSp(28.0),
+                                  GestureDetector(
+                                    onTap: (){
+                                      _gotoPicList();
+                                    },
+                                    child: Text(
+                                      '查看所有表情包',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(153, 153, 153, 1),
+                                        fontSize: ScreenUtil().setSp(28.0),
+                                      ),
                                     ),
                                   )
                                 ],
@@ -412,7 +434,7 @@ class _DetailState extends State<Detail> {
                             ),
                             DetailTitle(
                               title: 'IP表现力',
-                              icon: Icons.sentiment_satisfied,
+                              icon: Icons.face,
                               isShowTime: true,
                               isShowLoadMore: true,
                               fn: _gotoHomeData,
@@ -672,7 +694,9 @@ class KeyImage extends StatelessWidget {
 class IPConnect extends StatelessWidget {
   final String title;
   final List<String> imgList;
-  const IPConnect({Key key, this.title,this.imgList}) : super(key: key);
+  final Function fn;
+  final int id;
+  const IPConnect({Key key, this.title,this.imgList,this.id,this.fn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -689,18 +713,23 @@ class IPConnect extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.black, fontSize: ScreenUtil().setSp(28.0)),
               ),
-              Row(
-                children: [
-                  Text(
-                    '更多',
-                    style: TextStyle(
-                        color: Color.fromRGBO(153, 153, 153, 1),
-                        fontSize: ScreenUtil().setSp(24.0),
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Icon(Icons.arrow_forward_ios,
-                      size: 12, color: Color.fromRGBO(153, 153, 153, 1)),
-                ],
+              GestureDetector(
+                onTap: (){
+                  fn(id);
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      '更多',
+                      style: TextStyle(
+                          color: Color.fromRGBO(153, 153, 153, 1),
+                          fontSize: ScreenUtil().setSp(24.0),
+                          fontWeight: FontWeight.w400),
+                    ),
+                    Icon(Icons.arrow_forward_ios,
+                        size: 12, color: Color.fromRGBO(153, 153, 153, 1)),
+                  ],
+                ),
               )
             ],
           ),
